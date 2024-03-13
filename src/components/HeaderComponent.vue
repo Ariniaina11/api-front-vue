@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>API - Front - Vue</h1>
+        <h1 class="text-blue-700">API - Front - Vue</h1>
     </div>
 </template>
 
@@ -11,7 +11,5 @@
 </script>
 
 <style>
-    h1{
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
+    
 </style>
