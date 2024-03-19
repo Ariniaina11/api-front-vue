@@ -1,5 +1,5 @@
 <template>
-  <HeaderComponent/>
+  <HeaderComponent title="UserAPI" />
   <MainComponent/>
   <FooterComponent author="Mamitiana"/>
 </template>
