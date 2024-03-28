@@ -1,5 +1,5 @@
 <template>
-    <div class="m-auto w-4/12 mt-5 bg-blue-900">
+    <div class="m-auto mt-5">
         <RouterView></RouterView>
     </div>
 </template>
