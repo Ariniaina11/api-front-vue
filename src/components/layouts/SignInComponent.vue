@@ -1,5 +1,5 @@
 <template>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-10">
+    <form class="bg-white shadow-md rounded  w-4/12 mx-auto px-8 pt-6 pb-8 mb-10">
         <h1 class="block text-gray-700 text-2xl text-center font-bold mb-5">Sign In</h1>
         <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
