@@ -32,6 +32,11 @@
             <button class="bg-teal-700 hover:bg-teal-600 text-white font-bold w-4/12 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                 Sign Up
             </button>
+
+            <!-- Loading -->
+            <div v-if="loading" class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-teal-500" role="status">
+                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+            </div>
         </div>
     </form>
 </template>
@@ -48,7 +53,8 @@
                 email: '',
                 password: '',
                 passwordConf: '',
-                errors: []
+                errors: [],
+                loading: false
             }
         },
         methods: {
@@ -63,6 +69,8 @@
 
                 // Everything works
                 if(!this.errors.length){
+                    this.loading = true // Start the loading
+
                     const apiUrl = 'http://localhost:8000/api/add_user';
                     let formData = new FormData();
 
@@ -74,11 +82,13 @@
                     await axios.post(apiUrl, formData).then((response) => {
                         console.log(response)
                         if(response.status == 200){
-                            alert(response.data.message)
+                            this.loading = false; // Stop the loading
 
+                            alert(response.data.message)
                             this.resetInputs();
                         }
                     }).catch((error) =>{
+                        this.loading = false; // Stop the loading
                         this.errors.push(error.message)
                     })
                 }
