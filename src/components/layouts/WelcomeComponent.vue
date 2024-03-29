@@ -5,7 +5,7 @@
         </div>
         <span class="text-3xl font-sans">to <strong class="underline decoration-teal-600">#UserAPI</strong></span>
         <div class="mx-auto m-16">
-            <RouterLink to="/sign-in" class="mt-10 font-mono text-teal-800 px-5 py-3 border-solid border border-teal-800 rounded-xl text-2xl cursor-pointer hover:text-white hover:bg-gradient-to-r hover:from-teal-800 hover:to-teal-600 hover:ease-in hover:duration-200">Getting started</RouterLink>
+            <RouterLink to="/sign-in" class="mt-10 font-mono text-teal-800 px-5 py-3 border-solid border border-teal-800 rounded-xl text-2xl cursor-pointer hover:text-white hover:bg-gradient-to-r hover:from-teal-800 hover:to-teal-600 hover:ease-in hover:duration-200">Get started</RouterLink>
         </div>
     </div>
 </template>

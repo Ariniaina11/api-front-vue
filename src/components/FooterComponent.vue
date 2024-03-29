@@ -1,5 +1,5 @@
 <template>
-    <span>{{ author }} copyright - 2024</span>
+    <footer class="text-center text-gray-700 font-thin w-full fixed bottom-0">&copy; {{ author }} copyright - {{ new Date().getFullYear() }}</footer>
 </template>
 
 <script>
@@ -10,9 +10,3 @@
         }
     }
 </script>
-
-<style>
-    span{
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-    }
-</style>
