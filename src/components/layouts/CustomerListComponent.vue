@@ -4,10 +4,15 @@
         <hr class="w-20 h-1 m-auto bg-gray-700">
     </div>
     <div class="px-10">
-        <button class="mb-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        <button class="block mb-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             <font-awesome-icon icon="plus-circle" class="mr-2 text-gray-200"></font-awesome-icon>
             Add new customer
         </button>
+
+        <!-- Loading -->
+        <div v-if="loading" class="mt-2 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-teal-500" role="status">
+            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+        </div>
         <table class="min-w-full bg-white">
             <thead class="bg-gray-600 text-white">
                 <tr>
@@ -35,7 +40,7 @@
                             &nbsp;
                             <font-awesome-icon icon="pencil" class="mr-2 text-gray-200"></font-awesome-icon>
                         </button>
-                        <button class="bg-red-700 hover:bg-red-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
+                        <button @click.prevent="deleteCustomer(customer.id)" class="bg-red-700 hover:bg-red-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
                             &nbsp;
                             <font-awesome-icon icon="ban" class="mr-2 text-gray-200"></font-awesome-icon>
                         </button>
@@ -44,11 +49,6 @@
                 
             </tbody>
         </table>
-
-        <!-- Loading -->
-        <div v-if="loading" class="mt-5 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-teal-500" role="status">
-            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-        </div>
     </div>
 </template>
 
@@ -68,6 +68,7 @@
         },
         methods:{
             async getCustomers(){
+                this.loading = true
                 let apiUrl = 'http://127.0.0.1:8000/api/customers'
 
                 await axios.get(apiUrl).then((response) => {
@@ -77,6 +78,22 @@
                     this.loading = false
                 }).catch((error) => {
                     console.log(error)
+                })
+            },
+            async deleteCustomer(id){
+                let apiUrl = `http://127.0.0.1:8000/api/customer/delete/${id}`;
+
+                await axios.delete(apiUrl).then((response) => {
+                    // console.log(response.data)
+                    if(response.data.code === 200){
+                        alert(response.data.message)
+                        this.getCustomers()
+                    }
+                    else{
+                        alert(response.data.message)
+                    }
+                }).catch(error => {
+                    alert(error)
                 })
             }
         },
