@@ -50,7 +50,7 @@
             </tbody>
         </table>
     </div>
-
+    
     <!-- New customer modal -->
     <Teleport to="#modal">
         <div v-if="newCustomerModal" class="bg-gray-800 bg-opacity-50 flex justify-center items-center fixed top-0 left-0 w-screen h-screen">
@@ -133,6 +133,7 @@
         methods:{
             async getCustomers(){
                 this.getCustomerloading = true
+                
                 let apiUrl = 'http://127.0.0.1:8000/api/customers'
 
                 await axios.get(apiUrl).then((response) => {
