@@ -34,6 +34,7 @@
 
 <script>
     import axios from 'axios';
+    import router from '@/routes/routes';
 
     export default {
         name : 'SignInComponent',
@@ -70,7 +71,8 @@
                         if(response.status == 200){
                             // Credentials accepted
                             if(response.data.code == 200){
-                                alert(response.data.message)
+                                console.log(response.data.message)
+                                router.push({path: '/customers'})
                             }
                             else{
                                 this.errors.push(response.data.message)

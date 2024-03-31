@@ -43,6 +43,7 @@
 
 <script>
     import axios from 'axios'
+    import router from '@/routes/routes'
 
     export default {
         name : 'SignUpComponent',
@@ -84,7 +85,9 @@
                         if(response.status == 200){
                             this.loading = false; // Stop the loading
 
-                            alert(response.data.message)
+                            router.push({path: '/sign-in'}) // Redirect to Sign-In
+
+                            console.log(response.data.message)
                             this.resetInputs();
                         }
                     }).catch((error) =>{
