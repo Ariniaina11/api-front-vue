@@ -3,8 +3,8 @@
         <!-- Close button -->
         <button @click="closeHandler" class="absolute top-1 right-2 border-none cursor-pointer bg-none">X</button>
         
-        <h1 class="block text-gray-700 text-2xl text-center font-bold mb-5">New customer</h1>
-        <form @submit.prevent="storeCustomer" class="w-full" novalidate>
+        <h1 class="block text-gray-700 text-2xl text-center font-bold mb-5">{{title}}</h1>
+        <form @submit.prevent="submitHandler" class="w-full" novalidate>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
                     First name
@@ -32,12 +32,12 @@
 
             <!-- Errors -->
             <ul class="list-disc text-red-600 mb-6 ml-5 text-xs">
-                <li v-for="(error, index) in newCustomerErrors" :key="index">{{error}}</li>
+                <li v-for="(error, index) in errors" :key="index">{{error}}</li>
             </ul>
 
             <div class="flex items-center justify-between">
                 <button class="bg-teal-700 hover:bg-teal-600 text-white font-bold w-4/12 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                    Create
+                    {{btnText}}
                 </button>
 
                 <!-- Loading -->
@@ -54,9 +54,14 @@
 
     export default {
         name: 'NewCustomerComponent',
+        props:{
+            title: String,
+            btnText: String,
+            customerToEdit: Array
+        },
         data(){
             return {
-                customer: {},
+                customer: {...this.customerToEdit} ?? {}, // Edit or New
                 first_name : '',
                 last_name : '',
                 email : '',
@@ -66,6 +71,15 @@
             }
         },
         methods: {
+            // New customer or update customer
+            submitHandler(){
+                if(this.customerToEdit){
+                    this.updateCustomer()
+                }
+                else{
+                    this.storeCustomer()
+                }
+            },
             // Store a new customer
             async storeCustomer(){
                 this.loading = true // Start the loading
@@ -95,6 +109,37 @@
                     this.errors.push(error.message)
                 })
             },
+
+            // Update a customer
+            async updateCustomer(){
+                this.loading = true // Start the loading
+                this.errors = []
+
+                const apiUrl = `http://localhost:8000/api/customer/update/${this.customerToEdit.id}`;
+                let formData = new FormData();
+
+                formData.append('first_name', this.customer.first_name)
+                formData.append('last_name', this.customer.last_name)
+                formData.append('email', this.customer.email)
+                formData.append('contact', this.customer.contact)
+
+                // Sending request
+                await axios.post(apiUrl, formData).then((response) => {
+                    this.loading = false; // Stop the loading
+
+                    if(response.data.code === 200){
+                        this.$emit('customer-updated', true)
+
+                        console.log(response.data.message)
+                    }else{
+                        this.errors.push(response.data.message)
+                    }
+                }).catch((error) =>{
+                    this.loading = false; // Stop the loading
+                    this.errors.push(error.message)
+                })
+            },
+
             // Close the modal
             closeHandler(){
                 this.$emit('new-customer-close', true)

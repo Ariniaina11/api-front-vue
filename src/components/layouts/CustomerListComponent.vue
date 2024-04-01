@@ -4,7 +4,7 @@
         <hr class="w-20 h-1 m-auto bg-gray-700">
     </div>
     <div class="px-10">
-        <button @click="newCustomerModal = true" class="block mb-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        <button @click="newCustomerHandle" class="block mb-2 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             <font-awesome-icon icon="plus-circle" class="mr-2 text-gray-200"></font-awesome-icon>
             Add new customer
         </button>
@@ -36,7 +36,7 @@
                             &nbsp;
                             <font-awesome-icon icon="eye" class="mr-2 text-gray-200"></font-awesome-icon>
                         </button>
-                        <button class="mr-2 bg-blue-700 hover:bg-blue-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
+                        <button @click.prevent="editCustomerHandle(customer)" class="mr-2 bg-blue-700 hover:bg-blue-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
                             &nbsp;
                             <font-awesome-icon icon="pencil" class="mr-2 text-gray-200"></font-awesome-icon>
                         </button>
@@ -55,8 +55,12 @@
         <!-- New customer modal -->
         <div v-if="newCustomerModal" class="bg-gray-800 bg-opacity-50 flex justify-center items-center fixed top-0 left-0 w-screen h-screen">
             <NewCustomerComponent 
+                :title="modalTitle"
+                :customerToEdit="customerToEdit"
+                :btnText="btnText"
                 @new-customer-close="newCustomerModal = false" 
-                @new-customer-stored="newCustomerStoredHandler" />
+                @new-customer-stored="newCustomerStoredHandler"
+                @customer-updated="customerUpdatedHandler" />
         </div>
 
         <!-- Deleting customer modal -->
@@ -83,7 +87,10 @@
         data(){
             return {
                 customers: Array,
-                customerToDelete: Number,
+                customerToDelete: 0,
+                customerToEdit: Array,
+                modalTitle: '',
+                btnText: '',
                 newCustomerModal: false,
                 deleteCustomerModal: false
             }
@@ -107,10 +114,25 @@
                 })
             },
 
+            // New customer
+            newCustomerHandle(){
+                this.modalTitle = 'New customer';
+                this.btnText = 'Create'
+                this.newCustomerModal = true
+            },
+
             // If a new customer stored successfully
             newCustomerStoredHandler(){
                 this.newCustomerModal = false
                 this.getCustomers()
+            },
+
+            // Edit customer
+            editCustomerHandle(customer){
+                this.customerToEdit = customer
+                this.modalTitle = 'Editing customer'
+                this.btnText = 'Update'
+                this.newCustomerModal = true
             },
 
             // Delete a customer
@@ -122,6 +144,12 @@
             // If a customer deleted successfully
             customerDeletedHandler(){
                 this.deleteCustomerModal = false
+                this.getCustomers()
+            },
+
+            // If a customer updated successfully
+            customerUpdatedHandler(){
+                this.newCustomerModal = false
                 this.getCustomers()
             }
         },
