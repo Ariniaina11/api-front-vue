@@ -88,7 +88,7 @@
             return {
                 customers: Array,
                 customerToDelete: 0,
-                customerToEdit: Array,
+                customerToEdit: null,
                 modalTitle: '',
                 btnText: '',
                 newCustomerModal: false,
@@ -116,6 +116,7 @@
 
             // New customer
             newCustomerHandle(){
+                this.customerToEdit = null
                 this.modalTitle = 'New customer';
                 this.btnText = 'Create'
                 this.newCustomerModal = true
