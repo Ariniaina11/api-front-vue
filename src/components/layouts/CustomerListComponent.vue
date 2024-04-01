@@ -94,6 +94,7 @@
         methods:{
             async getCustomers(){
                 this.getCustomerloading = true
+                
                 let apiUrl = 'http://127.0.0.1:8000/api/customers'
 
                 await axios.get(apiUrl).then((response) => {
