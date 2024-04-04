@@ -2,11 +2,12 @@
     <div class="bg-teal-800 text-white m-auto mx-3 mt-2 p-3 ">
         <div class="my-auto inline">
             <font-awesome-icon icon="user-secret" class="text-3xl mr-2 text-gray-200"></font-awesome-icon>
-            <RouterLink to="/" class="text-2xl inline">{{ title }}</RouterLink>
+            <RouterLink to="/" class="text-2xl inline">{{ this.$store.state.title }}</RouterLink>
         </div>
         <div class="float-right my-auto">
-            <RouterLink to="/sign-in" class="font-serif text-gray-300 mr-5 px-4 py-2 border-solid border border-gray-300 rounded text-lg hover:text-gray-700 hover:bg-gray-300 hover:ease-in hover:duration-200 hover:cursor-pointer">Sign In</RouterLink>
-            <RouterLink to="/sign-up" class="font-serif text-gray-700 mr-4 px-4 py-2 border-solid border border-gray-300 rounded text-lg bg-gray-300 cursor-pointer">Sign Up</RouterLink>
+            <RouterLink v-if="!this.$store.state.connected" to="/sign-in" class="font-serif text-gray-300 mr-5 px-4 py-2 border-solid border border-gray-300 rounded text-lg hover:text-gray-700 hover:bg-gray-300 hover:ease-in hover:duration-200 hover:cursor-pointer">Sign In</RouterLink>
+            <RouterLink v-if="!this.$store.state.connected" to="/sign-up" class="font-serif text-gray-700 mr-4 px-4 py-2 border-solid border border-gray-300 rounded text-lg bg-gray-300 cursor-pointer">Sign Up</RouterLink>
+            <RouterLink v-if="this.$store.state.connected" to="/sign-up" class="font-serif text-gray-700 mr-2 px-4 py-2 border-solid border border-gray-300 rounded text-lg bg-gray-300 cursor-pointer">Logout</RouterLink>
         </div>
     </div>
 </template>
