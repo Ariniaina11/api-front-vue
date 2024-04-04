@@ -1,6 +1,6 @@
 <template>
-  <HeaderComponent title="UserAPI" />
-  <MainComponent/>
+  <HeaderComponent />
+  <MainComponent @login-check="loginCheckHandle"/>
   <FooterComponent author="Mamitiana"/>
 </template>
 
@@ -15,6 +15,16 @@ export default {
     HeaderComponent,
     MainComponent,
     FooterComponent
+  },
+  data(){
+    return{
+      title: this.$store.state.title
+    }
+  },
+  methods:{
+    loginCheckHandle(value){
+      this.title = value
+    }
   }
 }
 </script>
