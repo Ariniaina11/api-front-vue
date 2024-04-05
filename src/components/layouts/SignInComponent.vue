@@ -71,11 +71,13 @@
                         if(response.status == 200){
                             // Credentials accepted
                             if(response.data.code == 200){
-                                // console.log(response.data.message)
+                                const user = response.data.user
 
-                                // Edit the title and login status
-                                this.$store.commit('setTitle', 'Luda');
+                                // Edit the user, title, home URL and login status
+                                this.$store.commit('userAutheticated', user)
+                                this.$store.commit('setTitle', user.name);
                                 this.$store.commit('setConnected', true);
+                                this.$store.commit('setHomeUrl', '/customers');
 
                                 router.push({path: '/customers'})
                             }

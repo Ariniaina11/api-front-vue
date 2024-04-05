@@ -32,7 +32,7 @@
                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:{{customer.email}}">{{customer.email}}</a></td>
                     <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:{{customer.contact}}">{{customer.contact}}</a></td>
                     <td class="text-center w-1/3 py-3 px-4">
-                        <button class="mr-2 bg-gray-700 hover:bg-gray-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
+                        <button @click.prevent="viewCustomerHandle(customer)" class="mr-2 bg-gray-700 hover:bg-gray-600 text-white p-1 rounded focus:outline-none focus:shadow-outline" type="button">
                             &nbsp;
                             <font-awesome-icon icon="eye" class="mr-2 text-gray-200"></font-awesome-icon>
                         </button>
@@ -58,6 +58,7 @@
                 :title="modalTitle"
                 :customerToEdit="customerToEdit"
                 :btnText="btnText"
+                :viewCustomer="viewCustomer"
                 @new-customer-close="newCustomerModal = false" 
                 @new-customer-stored="newCustomerStoredHandler"
                 @customer-updated="customerUpdatedHandler" />
@@ -91,6 +92,7 @@
                 customerToEdit: null,
                 modalTitle: '',
                 btnText: '',
+                viewCustomer : false,
                 newCustomerModal: false,
                 deleteCustomerModal: false
             }
@@ -119,6 +121,7 @@
                 this.customerToEdit = null
                 this.modalTitle = 'New customer';
                 this.btnText = 'Create'
+                this.viewCustomer = false
                 this.newCustomerModal = true
             },
 
@@ -128,11 +131,20 @@
                 this.getCustomers()
             },
 
+            // View customer
+            viewCustomerHandle(customer){
+                this.customerToEdit = customer
+                this.modalTitle = "Customer's detail"
+                this.viewCustomer = true
+                this.newCustomerModal = true
+            },
+
             // Edit customer
             editCustomerHandle(customer){
                 this.customerToEdit = customer
                 this.modalTitle = 'Editing customer'
                 this.btnText = 'Update'
+                this.viewCustomer = false
                 this.newCustomerModal = true
             },
 

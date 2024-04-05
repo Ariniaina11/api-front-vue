@@ -9,25 +9,25 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
                     First name
                 </label>
-                <input v-model="customer.first_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first_name" name="first_name" type="text" placeholder="First name">
+                <input v-model="customer.first_name" v-bind:disabled="viewCustomer" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first_name" name="first_name" type="text" placeholder="First name">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="last_name">
                     Last name
                 </label>
-                <input v-model="customer.last_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" name="last_name" type="text" placeholder="Last name">
+                <input v-model="customer.last_name" v-bind:disabled="viewCustomer" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" name="last_name" type="text" placeholder="Last name">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                     Email
                 </label>
-                <input v-model="customer.email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="Email">
+                <input v-model="customer.email" v-bind:disabled="viewCustomer" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="Email">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="contact">
                     Contact
                 </label>
-                <input v-model="customer.contact" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Contact">
+                <input v-model="customer.contact" v-bind:disabled="viewCustomer" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Contact">
             </div>
 
             <!-- Errors -->
@@ -35,7 +35,7 @@
                 <li v-for="(error, index) in errors" :key="index">{{error}}</li>
             </ul>
 
-            <div class="flex items-center justify-between">
+            <div v-if="!viewCustomer" class="flex items-center justify-between">
                 <button class="bg-teal-700 hover:bg-teal-600 text-white font-bold w-4/12 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     {{btnText}}
                 </button>
@@ -57,7 +57,8 @@
         props:{
             title: String,
             btnText: String,
-            customerToEdit: Array
+            customerToEdit: Array,
+            viewCustomer: Boolean
         },
         data(){
             return {
