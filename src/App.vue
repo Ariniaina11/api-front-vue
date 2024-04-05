@@ -1,6 +1,6 @@
 <template>
   <HeaderComponent />
-  <MainComponent @login-check="loginCheckHandle"/>
+  <MainComponent />
   <FooterComponent author="Mamitiana"/>
 </template>
 
@@ -19,11 +19,6 @@ export default {
   data(){
     return{
       title: this.$store.state.title
-    }
-  },
-  methods:{
-    loginCheckHandle(value){
-      this.title = value
     }
   }
 }

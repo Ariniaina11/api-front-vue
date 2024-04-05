@@ -1,13 +1,13 @@
 <template>
     <div class="bg-teal-800 text-white m-auto mx-3 mt-2 p-3 ">
         <div class="my-auto inline">
-            <font-awesome-icon icon="user-secret" class="text-3xl mr-2 text-gray-200"></font-awesome-icon>
-            <RouterLink :to="this.$store.state.homeUrl" class="text-2xl inline">{{ this.$store.state.title }}</RouterLink>
+            <font-awesome-icon icon="key" class="text-lg mr-2 text-gray-200 lg:text-xl"></font-awesome-icon>
+            <RouterLink :to="this.$store.state.homeUrl" class="text-lg inline lg:text-xl">{{ this.$store.state.title }}</RouterLink>
         </div>
         <div class="float-right my-auto">
-            <RouterLink v-if="!this.$store.state.connected" to="/sign-in" class="font-serif text-gray-300 mr-5 px-4 py-2 border-solid border border-gray-300 rounded text-lg hover:text-gray-700 hover:bg-gray-300 hover:ease-in hover:duration-200 hover:cursor-pointer">Sign In</RouterLink>
-            <RouterLink v-if="!this.$store.state.connected" to="/sign-up" class="font-serif text-gray-700 mr-4 px-4 py-2 border-solid border border-gray-300 rounded text-lg bg-gray-300 cursor-pointer">Sign Up</RouterLink>
-            <button v-if="this.$store.state.connected" @click.prevent="logoutModal = true" class="font-serif text-gray-700 my-auto px-4 py-1 border-solid border border-gray-300 rounded text-lg bg-gray-300 cursor-pointer" type="button">Logout</button>
+            <RouterLink v-if="!this.$store.state.connected" to="/sign-in" class="font-serif text-gray-300 mr-5 px-4 py-2 border-solid border border-gray-300 rounded text-md lg:text-lg  hover:text-gray-700 hover:bg-gray-300 hover:ease-in hover:duration-200 hover:cursor-pointer">Sign In</RouterLink>
+            <RouterLink v-if="!this.$store.state.connected" to="/sign-up" class="font-serif text-gray-700 px-4 py-2 border-solid border border-gray-300 rounded text-md lg:text-lg  bg-gray-300 cursor-pointer">Sign Up</RouterLink>
+            <button v-if="this.$store.state.connected" @click.prevent="logoutModal = true" class="font-serif text-gray-700 px-4 py-1 border-solid border border-gray-300 rounded text-md lg:text-lg lg:py-0 bg-gray-300 cursor-pointer" type="button">Logout</button>
         </div>
     </div>
 
