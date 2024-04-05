@@ -1,5 +1,5 @@
 <template>
-    <div class="relative w-1/3 bg-white p-5 border rounded shadow-lg shadow-slate-700">
+    <div class="relative w-10/12 sm:w-8/12 md:w-6/12 lg:w-4/12 bg-white p-5 border rounded shadow-lg shadow-slate-700">
         <!-- Close button -->
         <button @click="closeHandler" class="absolute top-1 right-2 border-none cursor-pointer bg-none">X</button>
         
